@@ -1,6 +1,6 @@
- <!--This is a comment. Comments are ignored by the generator. You can safely delete it and any other comment.-->
-
 <conversation id="bridgevendor">
+
+  <!--Blocks beginning with <! are comments. Comments are ignored by the generator and can be safely deleted.-->
   <!--
       A dialogue tree file uses the xml file format and must contain a single <conversation> tag at the top level.
       A world may only have a single dialogue with a given id. Multiple dialogues must have unique ids
