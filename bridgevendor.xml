@@ -52,7 +52,7 @@
         during which they are tagged with dialogueid.next.stateid (e.g. bridgevendor.next.transact). After that, they are tagged with
         dialogueid.stateid (e.g. bridgevendor.transact)
         Note: because of the mechanism that replaces {select} with the appropriate target selector, the { and } characters may not appear elsewhere
-        in the command.
+        in the command. If you need { or } to appear in the command, use {{ or }} instead, and the doubled up bracket gets replaced with a single one.
     -->
     <command>tag {select} add payup</command>
 
