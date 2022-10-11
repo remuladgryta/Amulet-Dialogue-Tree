@@ -2,7 +2,7 @@
 An Amulet Editor operation that creates command blocks according to a dialogue tree file.
 
 ## Installing
-1. Go to `https://github.com/remuladgryta/Amulet-Dialogue-Tree/releases` and download the latest zip file.
+1. Go to https://github.com/remuladgryta/Amulet-Dialogue-Tree/releases and download the latest zip file.
 2. Copy `dialoguetree.py` from the zip into your Amulet `plugins/operations/` folder
 3. The generator should now show up in the dropdown list of operations in Amulet's 3D editor the next time you open a world.
 
