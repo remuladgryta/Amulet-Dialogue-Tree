@@ -40,6 +40,9 @@ BLOCK_VERSION = ("java", (1, 16, 3))
 def operation(
     world: BaseLevel, dimension: Dimension, selection: SelectionGroup, options: dict
 ):
+    if len(selection) < 1:
+        raise Exception("You need to select an area to place command blocks in.")
+
     path = options["Dialogue xml"]
     command_chains = parse_dialogue_xml(path)
 
