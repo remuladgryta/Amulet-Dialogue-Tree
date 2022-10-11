@@ -130,7 +130,7 @@ def parse_rawtext_json(text):
 def state(dialogue_id, state_node):
         state_id = state_node.get("id")
         if state_id == "end":
-            raise("'end' is a reserved special state, you may not declare it.")
+            raise Exception('"end" is a reserved special state, you may not declare it.')
         state_tag = ".".join([dialogue_id, state_id])
         state_transition_tag = ".".join([dialogue_id, "next", state_id])
         transition_chain = Chain(tag=state_transition_tag)
