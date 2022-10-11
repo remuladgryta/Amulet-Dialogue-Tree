@@ -59,6 +59,7 @@ def parse_dialogue_xml(path):
     root = tree.getroot()
     dialogue_id = root.get("id")
     chains = []
+    chains.append(["scoreboard objectives add dialogueOption trigger"])
     for state_node in root.iter("state"):
         chains += state(dialogue_id, state_node)
     chains.append(endstate(dialogue_id))
