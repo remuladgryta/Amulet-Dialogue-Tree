@@ -1,0 +1,27 @@
+<conversation id="bridgevendor">
+  <state id="intro">
+    <message>You are approached by an odd looking fella.</message>
+    <message speaker="@e[name='Bridge vendor']">Hello, traveler! Would you like to buy a bridge?</message>
+    <option next="price">Sure, how much are you asking for it?</option>
+    <option next="end">No thanks, bye.</option>
+  </state>
+
+  <state id="price">
+    <message speaker="@e[name='Bridge vendor']">A mere 20 diamonds. A paltry sum for such an excellent bridge, I daresay.</message>
+    <option next="transact">OK, we have a deal!</option>
+    <option next="end">Oh, that's too expensive. Never mind.</option>
+  </state>
+
+  <state id="transact">
+    <message speaker="@e[name='Bridge vendor']">A pleasure doing business with you!</message>
+    <message speaker="@e[name='Bridge vendor']">{"text":"(muttering) I can't believe they fell for it...", "italic":true}</message>
+    <command>tag {select} add payup</command>
+  </state>
+
+  <state id="lolscammed">
+    <message speaker="@e[name='Bridge vendor']">No take backsies!</message>
+    <command>execute as {select} run playsound minecraft:entity.firework_rocket.launch master {select}</command>
+    <option next="lolscammed">I regret my desicion! Please give me my money back.</option>
+    <option next="end">Grumble, grumble...</option>
+  </state>
+</conversation>
