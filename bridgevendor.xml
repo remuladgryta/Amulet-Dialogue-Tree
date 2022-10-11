@@ -1,8 +1,33 @@
+ <!--This is a comment. Comments are ignored by the generator. You can safely delete it and any other comment.-->
+
 <conversation id="bridgevendor">
-  <state id="intro">
-    <message>You are approached by an odd looking fella.</message>
-    <message speaker="@e[name='Bridge vendor']">Hello, traveler! Would you like to buy a bridge?</message>
+  <!--
+      A dialogue tree file uses the xml file format and must contain a single <conversation> tag at the top level.
+      A world may only have a single dialogue with a given id. Multiple dialogues must have unique ids
+  -->
+  <state id="intro"> <!--The <conversation> tag can contain several <state> tags. Each state in a conversation must have a unique id-->
+    <!--
+        The contents of a <state> tag determines what should happen to a player when they *enter* that state.
+        Each child tag inside a state gets executed in order
+    -->
+
+    <!--A <message> tag sends a message with its contents to the player-->
+    <message>You are approached by an odd looking person.</message>
+
+    <!--
+        <message> tags can optionally have a speaker attribute.
+        Use a target selector (https://minecraft.fandom.com/wiki/Target_selectors) to specify which entity is speaking.
+        Note: Make sure that the target selector will only ever select one entity or things will look weird. (you can specify limit=1 to do this)
+    -->
+    <message speaker="@e[name='Bridge vendor']">Hello, traveler! Would you like to purchase a bridge?</message>
+
+    <!--
+        <option> tags specify possible responses that the player can make by clicking on them in chat.
+        The "next" attribute is mandatory and specifies which dialogue state to transition to if the option is selected
+    -->
     <option next="price">Sure, how much are you asking for it?</option>
+
+    <!--Note: the "end" state is special, it makes the player exit this dialogue. You should not give one of your own states the id "end".-->
     <option next="end">No thanks, bye.</option>
   </state>
 
@@ -14,8 +39,32 @@
 
   <state id="transact">
     <message speaker="@e[name='Bridge vendor']">A pleasure doing business with you!</message>
-    <message speaker="@e[name='Bridge vendor']">{"text":"(muttering) I can't believe they fell for it...", "italic":true}</message>
+
+    <!--
+        <message> and <option> tags don't just have to contain plain text, they can also be a raw JSON text component. They use the /tellraw command.
+        See https://minecraft.fandom.com/wiki/Raw_JSON_text_format for details.
+    -->
+    <message speaker="@e[name='Bridge vendor']">{"text":"(under their breath) I can't believe they fell for it...", "italic":true}</message>
+
+    <!--
+        A <state> can have several <command>s associated with it. They run every tick regardless of if any player is in the state or not.
+        Inside a <command>, {select} gets replaced with a target selector that targets players who are in the process of entering this state,
+        Use this to only target players when they are in the process of entering a dialogue state.
+        A player is only *entering* a new state while the command block chain associated with this state is running,
+        during which they are tagged with dialogueid.next.stateid (e.g. bridgevendor.next.transact). After that, they are tagged with
+        dialogueid.stateid (e.g. bridgevendor.transact)
+        Note: because of the mechanism that replaces {select} with the appropriate target selector, the { and } characters may not appear elsewhere
+        in the command.
+    -->
     <command>tag {select} add payup</command>
+
+    <!--If a <state> does not contain any dialogue <option>s, the responsibility of transitioning players from this state to another is
+        left up to the map maker. To do so, remove the dialogueid.stateid tag (in this case bridgevendor.transact) from the player,
+        and add the dialogueid.next.stateid (e.g. bridgevendor.next.lolscammed) tag to them.
+        In this instance, to move the player Notch from the "transact" state to the "lolscammed" state you would run
+            /tag Notch remove bridgevendor.transact
+            /tag Notch add bridgevendor.next.lolscammed
+    -->
   </state>
 
   <state id="lolscammed">
